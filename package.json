@@ -18,7 +18,7 @@
     "url": "https://github.com/ansh121-test-org/demo-1/issues"
   },
   "homepage": "https://github.com/ansh121-test-org/demo-1#readme",
-  "dependencies": {
+  "devDependencies": {
     "@actions/core": "^1.8.1",
     "@actions/github": "^5.0.2"
   }

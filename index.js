@@ -2,7 +2,6 @@ import { getOctokit, context as _context } from '@actions/github';
 import { getInput, setOutput, setFailed } from '@actions/core';
 
 async function run() {
-  // console.log("hello..............");
   try {
     const token = getInput('token');
     const octokit = getOctokit(token);
