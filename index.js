@@ -5,37 +5,34 @@ async function run() {
   try {
     const token = getInput('token');
     const octokit = getOctokit(token);
-    // const ctx = context;
 
-    const issuesAndPulls = await octokit.paginate(octokit.rest.issues.listForRepo, {
+    const list = await octokit.paginate(octokit.rest.issues.listForRepo, {
       owner: context.repo.owner,
       repo: context.repo.repo,
       state: 'all',
     });
 
     const issue_stats = { open: 0, closed: 0 }
+    const pull_request_stats = { open: 0, closed: 0, merged: 0 }
 
-    const pull_stats = { open: 0, closed: 0, merged: 0 }
-
-    for(const item of issuesAndPulls){
-      if('pull_request' in item) {
-        if(item.state == 'open') pull_stats.open ++;
-        else{
-          if(item.merged_at == null) pull_stats.closed ++;
-          else pull_stats.merged ++;
-        }
+    for (const item in list) {
+      if ('pull_request' in item) {
+        if (item.state == 'open') pull_request_stats.open++;
+        else if (item.merged_at == null) pull_request_stats.closed++;
+        else pull_request_stats.merged++;
       }
       else {
-        if(item.state == 'open') issue_stats.open ++;
-        else issue_stats.closed ++;
+        if (item.state == 'open') issue_stats.open++;
+        else issue_stats.closed++;
       }
     }
 
-    setOutput('pulls', pull_stats);
-    setOutput('issues', issue_stats);
+    setOutput('pull_request_stats', pull_stats);
+    setOutput('issue_stats', issue_stats);
+
   } catch (error) {
     setFailed(error.message);
   }
-}
 
-run();
+
+  run();
