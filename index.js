@@ -15,7 +15,7 @@ async function run() {
     const issue_stats = { open: 0, closed: 0 }
     const pull_request_stats = { open: 0, closed: 0, merged: 0 }
     console.log(list);
-    for (const item in list) {
+    for (var item in list) {
       console.log(item);
       if ('pull_request' in item) {
         if (item.state == 'open') pull_request_stats.open++;
