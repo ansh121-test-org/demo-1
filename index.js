@@ -27,7 +27,7 @@ async function run() {
       }
     }
 
-    setOutput('pull_request_stats', pull_stats);
+    setOutput('pull_request_stats', pull_request_stats);
     setOutput('issue_stats', issue_stats);
 
   } catch (error) {
