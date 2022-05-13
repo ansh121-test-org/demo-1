@@ -1,11 +1,11 @@
-import { getOctokit, context as _context } from '@actions/github';
+import { getOctokit, context } from '@actions/github';
 import { getInput, setOutput, setFailed } from '@actions/core';
 
 async function run() {
   try {
     const token = getInput('token');
     const octokit = getOctokit(token);
-    const context = _context;
+    // const ctx = context;
 
     const issuesAndPulls = await octokit.paginate(octokit.rest.issues.listForRepo, {
       owner: context.repo.owner,
