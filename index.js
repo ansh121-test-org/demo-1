@@ -33,6 +33,6 @@ async function run() {
   } catch (error) {
     setFailed(error.message);
   }
+}
 
-
-  run();
+run();
