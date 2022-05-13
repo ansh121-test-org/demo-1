@@ -1,11 +1,11 @@
-import { getOctokit, context as _context } from '@actions/github';
-import { getInput, setOutput, setFailed } from '@actions/core';
+const github = require('@actions/github');
+const core = require('@actions/core');
 
 async function run() {
   try {
-    const token = getInput('token');
-    const octokit = getOctokit(token);
-    const context = _context;
+    const token = core.getInput('token');
+    const octokit = github.getOctokit(token);
+    const context = github.context;
 
     const issuesAndPulls = await octokit.paginate(octokit.rest.issues.listForRepo, {
       owner: context.repo.owner,
@@ -31,10 +31,10 @@ async function run() {
       }
     }
 
-    setOutput('pulls', pull_stats);
-    setOutput('issues', issue_stats);
+    core.setOutput('pulls', pull_stats);
+    core.setOutput('issues', issue_stats);
   } catch (error) {
-    setFailed(error.message);
+    core.setFailed(error.message);
   }
 }
 
