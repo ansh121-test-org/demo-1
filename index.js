@@ -6,7 +6,7 @@ async function run() {
     const token = getInput('token');
     const octokit = getOctokit(token);
 
-    const list = await octokit.paginate(octokit.rest.issues.listForRepo, {
+    const list = await octokit.rest.issues.listForRepo({
       owner: context.repo.owner,
       repo: context.repo.repo,
       state: 'all',
